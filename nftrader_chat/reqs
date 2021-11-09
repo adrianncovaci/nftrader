@@ -1,0 +1,11 @@
+chat:
+    * multiple clients can connect to chat server via websocket
+    * they can communicate with each other
+    * they can initialize an nft trade which will lead to a call to the escrow service, issuing an init transaction
+
+    consists of:
+        * user(s)
+        * feed
+        * messages
+        * mentions
+
