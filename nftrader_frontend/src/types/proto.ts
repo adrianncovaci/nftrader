@@ -9,8 +9,10 @@ export type JoinInput = {
 };
 
 export type PostInput = {
-    input: InputType.Post;
-    payload: { body: string; };
+    client_id: string;
+    input: {
+        content: string;    
+    }
 };
 
 export type Input = JoinInput | PostInput;
@@ -48,11 +50,14 @@ export type JoinedOutput = {
 };
 
 export type SelfJoinedOutput = {
-    output: OutputType.SelfJoined;
-    payload: {
-        client_id: string;
-        nickname: string;
-    };
+    client_id: string;
+    output: {
+        output: OutputType.SelfJoined;
+        payload: {
+            client_id: string;
+            nickname: string;
+        };
+    }
 };
 
 export type UserLeftOutput = {
@@ -63,13 +68,21 @@ export type UserLeftOutput = {
 };
 
 export type PostedOutput = {
-    output: OutputType.Posted;
-    payload: {
-        message: string;
-    };
+    client_id: string;
+    output: {
+        output: OutputType.Posted;
+        payload: {
+            content: string;
+        };
+    }
 };
 export type Output =
     OutputError |
     JoinedOutput |
     UserLeftOutput |
     PostedOutput
+
+export type Message = {
+    user: string;
+    content: string;
+};

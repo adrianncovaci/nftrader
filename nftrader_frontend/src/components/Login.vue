@@ -23,20 +23,17 @@
 </template>
 
 <script> 
-    import SocketService from '../services/SocketService';
     export default {
       name: 'Login',
-
       data: () => ({
         rules: [
             rule => !!rule || "Please provide a nickname",
         ],
         nickname: '',
-        socket: new SocketService()
       }),
       methods: {
           login() {
-            this.socket.login(this.nickname);
+            this.$wsService.login(this.nickname);
           }
       }
     };

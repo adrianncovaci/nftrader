@@ -1,4 +1,4 @@
-# nftrader-frontend
+# nftrader_frontend
 
 ## Project setup
 ```
