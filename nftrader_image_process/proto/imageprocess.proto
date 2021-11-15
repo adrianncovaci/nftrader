@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package imageprocess;
+
+service ImageGuid {
+    rpc GetImage(Image) returns (Image) {}
+}
+
+message Image {
+    string base64 = 1;
+}
