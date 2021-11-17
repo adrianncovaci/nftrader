@@ -25,7 +25,7 @@ async-stream = "0.2"
 serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0"
 rand = "0.7"
-blake2 = "0.8"
+blake2 = "0.9.2"
 diesel = { version = "1.4.8", features = ["postgres"] }
 dotenv = "0.15.0"
 
