@@ -1,6 +1,7 @@
 export enum InputType {
     Join = 'Joined',
     Post = 'Posted',
+    PostImage = 'PostedImage',
 }
 
 export type JoinInput = {

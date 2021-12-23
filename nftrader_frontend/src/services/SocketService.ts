@@ -1,17 +1,18 @@
 import Vue from 'vue';
-import {JoinInput, InputType, SelfJoinedOutput, PostInput, Message, PostedOutput} from './../types/proto';
-import Router from '../router'; 
+import { JoinInput, InputType, SelfJoinedOutput, PostInput, Message, PostedOutput } from './../types/proto';
+import Router from '../router';
 class SocketService extends Vue {
     nickname!: string;
     client_id!: string;
 
     login(nickname: string) {
-        const input: JoinInput  = {
+        const input: JoinInput = {
             input: InputType.Join,
-            payload: { nickname: nickname }  
+            payload: { nickname: nickname }
         };
         const stringInput = JSON.stringify(input);
         Vue.prototype.$ws.send(stringInput);
+        console.log("sent " + stringInput);
     }
 
     send_message(content: string) {
@@ -30,6 +31,25 @@ class SocketService extends Vue {
         Vue.prototype.$feed.push(postedMessage);
 
         Vue.prototype.$ws.send(stringInput);
+    }
+
+    send_picture(content: string) {
+        const newMessage = {
+            input: InputType.PostImage,
+            payload: {
+                content
+            }
+        };
+        const stringInput = JSON.stringify(newMessage);
+        const postedMessage: Message = {
+            user: this.client_id,
+            content: content
+        };
+        console.log(newMessage);
+        Vue.prototype.$feed.push(postedMessage);
+
+        Vue.prototype.$ws.send(stringInput);
+
     }
 
     handle_message(msg: MessageEvent) {

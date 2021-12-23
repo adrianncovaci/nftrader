@@ -1,0 +1,33 @@
+#[macro_use]
+extern crate lazy_static;
+use std::{collections::HashMap, convert::Infallible, sync::RwLock};
+
+use serde::{Deserialize, Serialize};
+
+lazy_static! {
+    static ref IMG_DB: RwLock<HashMap<String, Image>> = {
+        let m = HashMap::new();
+        RwLock::new(m)
+    };
+}
+
+pub mod imageprocess {
+    tonic::include_proto!("imageprocess");
+}
+
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub struct Image {
+    pub id: i32,
+    pub hashed_value: String,
+}
+
+async fn get_image(content: &str) -> Result<Box<dyn warp::Reply>, Infallible> {
+    if !IMG_DB.read().await.contains_key(content) {
+        return Reply;
+    } else {
+        let image = IMG_DB
+    }
+}
+
+#[tokio::main]
+async fn main() {}

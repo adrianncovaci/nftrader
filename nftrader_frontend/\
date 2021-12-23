@@ -23,6 +23,7 @@
                  >
                     Send Message
                  </v-btn>
+
                 <v-file-input
                   hide-input
                   show-size
@@ -32,9 +33,7 @@
                   @change="uploadImage"
                 ></v-file-input> 
 
-
                </v-card-text> 
-
              </v-card>   
          </div>
     </div>
@@ -58,15 +57,19 @@
             this.message = "";
             return;
           },
-          async uploadImage(image) {
-            const toBase64 = file => new Promise((resolve, reject) => {
-                const reader = new FileReader();
-                reader.readAsDataURL(file);
-                reader.onload = () => resolve(reader.result);
-                reader.onerror = error => reject(error);
-            });
-            const content = await toBase64(image);
-            this.$wsService.send_picture(content);
+          uploadImage(images) {
+            const reader = new FileReader();
+            reader.onloadend = () => {
+              // use a regex to remove data url part
+              const base64String = reader.result
+                .replace("data:", "")
+                .replace(/^.+,/, "");
+
+              // log to console
+              // logs wL2dvYWwgbW9yZ...
+              console.log(base64String);
+            };
+            reader.readAsDataURL(images[0]);
           }
         }
     };
